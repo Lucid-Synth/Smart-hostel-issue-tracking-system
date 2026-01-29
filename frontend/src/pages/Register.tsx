@@ -4,7 +4,7 @@ import {
   ShieldCheck, ArrowRight 
 } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { Base_url } from '../config/config';
 
@@ -19,6 +19,7 @@ const Register = () => {
     room:""
   })
 
+  const navigate = useNavigate()
 
   const handleChange = (field:any,value:any) => {
     setFormData(prev => ({...prev,[field]:value}));
@@ -27,10 +28,17 @@ const Register = () => {
   const handleSignup = async() => {
     const res = await axios.post(Base_url+'/register',formData);
 
-    const {token} = res.data;
+    const {token,user} = res.data;
 
     localStorage.setItem("token", token);
-    setSignedUp(true); 
+    localStorage.setItem("user",JSON.stringify(user))
+    setSignedUp(true);
+    if(user === "STUDENT"){
+      navigate('/student/dashboard');
+    }
+    else{
+      navigate('/admin/dashboard');
+    }
   }
 
   const [signedUp,setSignedUp] = useState(false)

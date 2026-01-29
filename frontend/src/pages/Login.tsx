@@ -17,24 +17,31 @@ const Login = () => {
         setFormData(prev => ({...prev,[field]:value}))
     }
 
-const handleLogin = async () => {
-  try {
-    setError(""); // clear old error
+  const handleLogin = async () => {
+    try {
+      setError(""); // clear old error
 
-    const res = await axios.post(Base_url + '/login', formData);
-    const { token } = res.data;
+      const res = await axios.post(Base_url + '/login', formData);
+      const { token,user } = res.data;
 
-    localStorage.setItem("token", token);
-    setLoggedIn(true);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user",JSON.stringify(user))
+      setLoggedIn(true);
+      if(user.role === "STUDENT"){
+        navigate('/student/dashboard');
+      }
+      else{
+        navigate('/admin/dashboard');
+      }
 
-  } catch (err: any) {
-    if (axios.isAxiosError(err)) {
-      setError(err.response?.data?.message || "Invalid credentials");
-    } else {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || "Invalid credentials");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     }
-  }
-};
+  };
 
     const navigate = useNavigate();
     function handleNavigate(){
