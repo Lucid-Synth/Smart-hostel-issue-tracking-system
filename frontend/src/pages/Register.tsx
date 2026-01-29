@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { 
   User, Mail, Lock, Building, MapPin, DoorOpen, 
-  ShieldCheck, ArrowRight 
+  AlertTriangle, ArrowRight 
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -50,7 +50,7 @@ const Register = () => {
         <div className="relative z-10">
           <div className="flex items-center gap-2 text-white mb-8">
             <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg">
-              <ShieldCheck size={28} />
+              <AlertTriangle size={28} />
             </div>
             <span className="text-2xl font-bold tracking-tight text-white">HostelDesk</span>
           </div>
@@ -71,7 +71,7 @@ const Register = () => {
         {/* Mobile Header */}
         <div className="lg:hidden flex flex-col items-center gap-2 mb-10">
           <div className="p-3 bg-emerald-600 rounded-2xl text-white shadow-lg shadow-emerald-200">
-            <ShieldCheck size={32} />
+            <AlertTriangle size={32} />
           </div>
           <span className="text-2xl font-bold tracking-tight text-emerald-800">HostelDesk</span>
         </div>

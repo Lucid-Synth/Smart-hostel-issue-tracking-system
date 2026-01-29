@@ -3,13 +3,14 @@ import axios from 'axios';
 import { 
   User, Building, MapPin, DoorOpen, 
   ShieldCheck,
-  User2
+  User2,
 } from 'lucide-react';
 import { Base_url } from '../config/config';
 import { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 
 const Profile = () => {
-  // Mock User Data based on your previous details
 const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -33,7 +34,16 @@ const [data, setData] = useState<any>(null);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] font-sans text-slate-900 pb-12">
+
+    <div className="min-h-screen bg-[#F8FAFC] flex font-sans">
+      <Sidebar />
+
+      {/* --- Main Content --- */}
+      <main className="flex-1 flex flex-col min-w-0">
+        <Navbar />
+
+        {/* Content Area */}
+        <div className="min-h-screen bg-[#FDFDFD] font-sans text-slate-900 pb-12">
       {/* Header / Cover Area */}
       <div className="h-40 bg-emerald-600 w-full relative">
         <div className="absolute -bottom-16 left-6 sm:left-12 flex items-end gap-6">
@@ -42,7 +52,7 @@ const [data, setData] = useState<any>(null);
               <User2 />
             </div>
           </div>
-          <div className="mb-2 hidden sm:block">
+          <div className=" hidden sm:block">
             <h1 className="text-2xl font-black text-slate-900 leading-none">{data?.name}</h1>
             <p className="text-slate-500 font-medium mt-1">{data?.role}</p>
           </div>
@@ -110,6 +120,9 @@ const [data, setData] = useState<any>(null);
         </div>
       </main>
     </div>
+      </main>
+    </div>
+    
   );
 };
 

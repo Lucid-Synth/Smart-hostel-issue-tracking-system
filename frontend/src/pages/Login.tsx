@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Lock, ShieldCheck, Fingerprint } from 'lucide-react';
+import { Mail, Lock, AlertTriangle, Fingerprint } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -56,7 +56,7 @@ const Login = () => {
         <div className="relative z-10">
           <div className="flex items-center gap-2 text-white mb-8">
             <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg">
-              <ShieldCheck size={28} />
+              <AlertTriangle size={28} />
             </div>
             <span className="text-2xl font-bold tracking-tight">HostelDesk</span>
           </div>
@@ -79,7 +79,7 @@ const Login = () => {
         {/* Mobile Header */}
         <div className="lg:hidden flex flex-col items-center gap-2 mb-12">
           <div className="p-3 bg-emerald-600 rounded-2xl text-white shadow-xl shadow-emerald-100">
-            <ShieldCheck size={32} />
+            <AlertTriangle size={32} />
           </div>
           <span className="text-2xl font-bold tracking-tight text-emerald-800">HostelDesk</span>
         </div>
