@@ -4,7 +4,7 @@ import {
   ShieldCheck, ArrowRight 
 } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { Base_url } from '../config/config';
 
@@ -19,8 +19,6 @@ const Register = () => {
     room:""
   })
 
-
-  const navigate = useNavigate();
 
   const handleChange = (field:any,value:any) => {
     setFormData(prev => ({...prev,[field]:value}));
@@ -77,7 +75,7 @@ const Register = () => {
           className="w-full max-w-md"
         >
           <div className="mb-8 text-center lg:text-left">
-            <h2 className="text-3xl font-bold text-slate-800">Student Registration</h2>
+            <h2 className="text-3xl font-bold text-slate-800 italic">Student Registration</h2>
             <p className="text-slate-500 mt-2">Join your hostel's digital ecosystem</p>
           </div>
 
@@ -161,9 +159,13 @@ const Register = () => {
             </button>
 
             {signedUp && (
-              <div>
-                You have Signedup
-              </div>
+              <motion.div
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-blue-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm font-medium"
+                >
+                    You have Registered
+                </motion.div>
             )}
 
             <p className="text-center text-slate-500 text-sm mt-8">
