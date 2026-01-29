@@ -1,1 +1,1 @@
-{"root":["./src/server.ts","./src/config/db.ts","./src/controllers/authController.ts","./src/drizzle/schema.ts","./src/middlewares/authMiddleware.ts","./src/middlewares/roleMiddleware.ts","./src/routes/authRoutes.ts"],"version":"5.9.3"}
+{"root":["./src/server.ts","./src/config/db.ts","./src/controllers/authController.ts","./src/controllers/issueController.ts","./src/drizzle/schema.ts","./src/middlewares/authMiddleware.ts","./src/middlewares/roleMiddleware.ts","./src/routes/authRoutes.ts","./src/routes/issueRoutes.ts"],"version":"5.9.3"}

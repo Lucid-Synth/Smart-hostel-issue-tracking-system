@@ -177,7 +177,7 @@ const Register = () => {
             )}
 
             <p className="text-center text-slate-500 text-sm mt-8">
-              Already registered? <Link className='text-blue-500' to="/login">Login</Link>
+              Already registered? <Link className='text-blue-500' to="/">Login</Link>
             </p>
           </form>
         </motion.div>

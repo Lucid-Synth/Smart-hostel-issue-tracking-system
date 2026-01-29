@@ -99,3 +99,48 @@ export const loginController = async(req:any,res:any) => {
     res.status(500).json({ message: "Login failed" });
   }
 }
+
+export const getProfile = async (req: any, res: any) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const user = await db
+      .select({
+        id: userTable.id,
+        name: userTable.name,
+        email: userTable.email,
+        role: userTable.role,
+        hostel: userTable.hostel,
+        block: userTable.block,
+        room: userTable.room,
+      })
+      .from(userTable)
+      .where(eq(userTable.id, userId))
+      .limit(1);
+
+    if (!user.length) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: user[0],
+    });
+  } catch (error) {
+    console.error("Get profile error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
