@@ -109,7 +109,6 @@ const uploadImages = async () => {
       });
 
       console.log("Issue created successfully:", response.data);
-      alert("Issue submitted successfully!");
       navigate("/student/dashboard");
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Failed to submit issue";

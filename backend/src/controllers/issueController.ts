@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { db } from "../config/db.js";
-import { issueTable } from "../drizzle/schema.js";
+import { issueTable, userTable } from "../drizzle/schema.js";
 
 
 export default async function addIssues(req:any,res:any){
@@ -82,3 +82,36 @@ export const getIssues = async (req: any, res: any) => {
     });
   }
 };
+
+export const getMyIssue = async(req:any,res:any) => {
+  try{
+    const userId = req.user?.id;
+
+    if(!userId){
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      })
+    }
+
+    const issues = await db.select()
+    .from(issueTable)
+    .where(
+      or(
+        eq(issueTable.createdBy,userId)
+      )
+    )
+
+    return res.status(200).json({
+      success: true,
+      count:issues.length,
+      issues
+    })
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    })
+  }
+}
