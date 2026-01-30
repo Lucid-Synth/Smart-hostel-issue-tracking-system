@@ -5,7 +5,7 @@ import {
   Eye, EyeOff, Send, HelpCircle
 } from 'lucide-react';
 import axios from 'axios';
-import { Base_url } from '../config/config';
+import { Base_url, CLOUDINARY_CONFIG } from '../config/config';
 import { useNavigate } from 'react-router-dom';
 
 const AddIssue = () => {
@@ -14,6 +14,8 @@ const AddIssue = () => {
   const [visibility, setVisibility] = useState<"PUBLIC" | "PRIVATE">("PRIVATE");
   const [images, setImages] = useState<File[]>([]);
   const [profile, setProfile] = useState<any>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleImageUpload = (files: FileList | null) => { 
   if (!files) return;
@@ -33,10 +35,31 @@ const AddIssue = () => {
   handleChange("images", updatedImages);
 };
 
-const removeImage = (index: number) => {
-  const updated = images.filter((_, i) => i !== index);
-  setImages(updated);
-  handleChange("images", updated);
+  const removeImage = (index: number) => {
+    const updated = images.filter((_, i) => i !== index);
+    setImages(updated);
+    handleChange("images", updated);
+  };
+
+  const uploadToCloudinary = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_CONFIG.UPLOAD_PRESET);
+
+  const res = await axios.post(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.CLOUD_NAME}/image/upload`,
+    formData
+  );
+
+  return res.data.secure_url;
+};
+
+const uploadImages = async () => {
+  const uploadedUrls = await Promise.all(
+    images.map((file) => uploadToCloudinary(file))
+  );
+
+  return uploadedUrls; 
 };
 
 
@@ -62,8 +85,40 @@ const removeImage = (index: number) => {
     setFormData(prev => ({...prev,[field]:value}));
   }
 
-  const handleData = () => {
-    console.log(formData);
+  const handleData = async () => {
+    try {
+      setIsSubmitting(true);
+      setSubmitError(null);
+
+      // Upload images to Cloudinary
+      let imageUrls: string[] = [];
+      if (images.length > 0) {
+        imageUrls = await uploadImages();
+      }
+
+      const finalData = {
+        ...formData,
+        images: imageUrls,
+      };
+
+      const token = localStorage.getItem("token");
+      const response = await axios.post(`${Base_url}/issues`, finalData, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      console.log("Issue created successfully:", response.data);
+      alert("Issue submitted successfully!");
+      navigate("/student/dashboard");
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Failed to submit issue";
+      setSubmitError(errorMessage);
+      console.error("Error submitting issue:", error);
+      alert(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
 
@@ -293,11 +348,18 @@ const removeImage = (index: number) => {
             <button
               type="submit"
               onClick={handleData}
-              className="w-full py-4 bg-slate-900 hover:bg-emerald-600 text-white font-bold rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2 group"
+              disabled={isSubmitting}
+              className="w-full py-4 bg-slate-900 hover:bg-emerald-600 disabled:bg-slate-400 text-white font-bold rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2 group"
             >
-              Submit Ticket
+              {isSubmitting ? "Submitting..." : "Submit Ticket"}
               <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </button>
+            
+            {submitError && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm">
+                {submitError}
+              </div>
+            )}
           </form>
         </motion.div>
 
