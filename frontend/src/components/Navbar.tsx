@@ -14,6 +14,7 @@ function Navbar() {
       try {
         const token = localStorage.getItem("token");
 
+
         const { data } = await axios.get(`${Base_url}/profile`, {
           headers: {
             Authorization: `${token}`,
@@ -28,6 +29,9 @@ function Navbar() {
 
     fetchProfile();
   }, []);
+
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
   return (
     <div>
         
@@ -39,7 +43,13 @@ function Navbar() {
           <div className="flex items-center gap-4 ml-auto">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-bold text-slate-800">{data?.name}</p>
-              <p className="text-xs text-slate-500">Block {data?.block}, Room {data?.room}</p>
+              {user?.role === "STUDENT" && (
+                <p className="text-xs text-slate-500">Block {data?.block}, Room {data?.room}</p>
+              )}
+
+              {user?.role === "MANAGEMENT" && (
+                <p className="text-xs text-slate-500">ADMIN</p>
+              )}
             </div>
             <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold border-2 border-white shadow-sm">
                 <User2 />

@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import StudentDashboard from "./pages/StudentDashboard"
 import AddIssue from "./pages/AddIssues"
 import Profile from "./pages/Profile"
+import AdminDashboard from "./pages/AdminDashboard"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Route path="/student/dashboard" element={<StudentDashboard />} />
       <Route path="/issues/add" element={<AddIssue />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
     </Routes>
     </>
   )

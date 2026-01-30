@@ -16,6 +16,8 @@ function Sidebar() {
     }`;
   };
 
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
   return (
     <aside className="hidden md:flex h-screen w-64 bg-white border-r border-slate-200 flex-col p-6 sticky top-0">
       {/* Brand Logo */}
@@ -28,11 +30,19 @@ function Sidebar() {
       
       {/* Navigation */}
       <nav className="space-y-2 flex-1">
-        <a href="/student/dashboard" className={linkStyles('/student/dashboard')}>
+        {user.role === 'STUDENT' && (
+          <a href="/student/dashboard" className={linkStyles('/student/dashboard')}>
           <LayoutDashboard size={20} />
           <span>Dashboard</span>
         </a>
-        
+        )}
+        {user.role === "MANAGEMENT" && (
+          <a href="/admin/dashboard" className={linkStyles('/admin/dashboard')}>
+          <LayoutDashboard size={20} />
+          <span>Dashboard</span>
+        </a>
+        )}
+
         <a href="/profile" className={linkStyles('/profile')}>
           <User2 size={20} />
           <span>Profile</span>
