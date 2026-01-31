@@ -8,6 +8,7 @@ import AdminDashboard from "./pages/AdminDashboard"
 import IssueDetails from "./pages/IssueDetails"
 import UpdateIssue from "./pages/UpdateIssue"
 import AdminRegister from "./pages/AdminRegister"
+import Announcement from "./pages/Announcement"
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/issue/:issueId" element={<IssueDetails />} />
       <Route path="/issue/:issueId/status" element={<UpdateIssue />} />
+      <Route path="/announcement" element={<Announcement />} />
     </Routes>
     </>
   )

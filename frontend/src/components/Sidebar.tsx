@@ -1,5 +1,6 @@
 import { 
-  AlertCircle, LayoutDashboard, User2, LogOut
+  AlertCircle, LayoutDashboard, User2, LogOut,
+  Megaphone
 } from 'lucide-react';
 
 
@@ -46,6 +47,11 @@ function Sidebar() {
         <a href="/profile" className={linkStyles('/profile')}>
           <User2 size={20} />
           <span>Profile</span>
+        </a>
+
+        <a href="/announcement" className={linkStyles('/announcement')}>
+          <Megaphone size={20} />
+          <span>Announcement</span>
         </a>
       </nav>
 
