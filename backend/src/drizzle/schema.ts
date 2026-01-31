@@ -28,6 +28,16 @@ export const issueStatusEnum = pgEnum("issue_status", [
   "CLOSED",
 ]);
 
+export const lostFoundTypeEnum = pgEnum("lost_found_type", [
+  "LOST",
+  "FOUND"
+]);
+
+export const itemStatusEnum = pgEnum("item_status", [
+  "OPEN",
+  "CLAIMED"
+]);
+
 export const userTable = pgTable("users_table", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
@@ -74,8 +84,5 @@ export const announcementTable = pgTable("announcement_table", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   message: text("message").notNull(),
-  targetHostel: varchar("target_hostel", { length: 100 }),
-  targetBlock: varchar("target_block", { length: 50 }),
-  targetRole: roleEnum("target_role"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

@@ -12,7 +12,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { Base_url } from "../config/config";
 
 
@@ -31,15 +31,12 @@ interface Issue {
   images: string[];
 }
 
-interface User {
-  role: "MANAGEMENT" | "STUDENT";
-}
 
 
 const IssueDetails = () => {
   const { issueId } = useParams<{ issueId: string }>();
   const token = localStorage.getItem("token");
-  const user: User | null = JSON.parse(localStorage.getItem("user") || "null");
+  const user: any = JSON.parse(localStorage.getItem("user") || "null");
 
   const [issue, setIssue] = useState<Issue | null>(null);
   const [loading, setLoading] = useState(true);
@@ -122,6 +119,14 @@ const IssueDetails = () => {
             <span className="px-3 py-1 bg-amber-50 text-amber-600 border rounded-full text-[10px] font-black uppercase">
               {issue.status}
             </span>
+            {user.role === "MANAGEMENT" && (
+              <NavLink
+              to={`status`}>
+                <button className="px-3 py-1 bg-amber-50 text-indigo-600 text-[10px] font-black uppercase">
+                  Update status
+                </button>
+              </NavLink>
+            )}
           </div>
         </div>
       </nav>

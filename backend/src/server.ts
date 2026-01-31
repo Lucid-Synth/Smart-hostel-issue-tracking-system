@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from 'express';
 import authRoutes from './routes/authRoutes.js'
 import issueRoutes from './routes/issueRoutes.js'
+import announcementRoutes from './routes/announcementRoute.js'
 import cors from 'cors';
 import { configDotenv } from 'dotenv';
 configDotenv();
@@ -14,6 +15,7 @@ app.use(cors({
 }));
 app.use('/',authRoutes);
 app.use('/',issueRoutes);
+app.use('/',announcementRoutes)
 
 
 app.get('/',(req:Request,res:Response) => {

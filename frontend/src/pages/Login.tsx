@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Lock, AlertTriangle, Fingerprint } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Base_url } from '../config/config';
 
@@ -92,7 +92,7 @@ const Login = () => {
         >
           <div className="mb-10 text-center lg:text-left">
             <h2 className="text-3xl font-bold text-slate-800 italic">Sign In</h2>
-            <p className="text-slate-500 mt-2">Access your student dashboard</p>
+            <p className="text-slate-500 mt-2">Access your student and admin dashboard</p>
           </div>
 
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
@@ -152,7 +152,7 @@ const Login = () => {
 
             <div className="relative py-4">
               <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
-              <div className="relative flex justify-center text-xs uppercase"><span className="bg-[#fafafa] px-2 text-slate-400 font-medium">New to the hostel?</span></div>
+              <div className="relative flex justify-center text-xs uppercase"><span className="bg-[#fafafa] px-2 text-slate-400 font-medium">New Student Register</span></div>
             </div>
 
             <button
@@ -162,6 +162,17 @@ const Login = () => {
             >
               Create an Account
             </button>
+            <div className="relative flex justify-center text-sm uppercase pt-7"><span className="bg-[#fafafa] px-2 text-red-400 font-bold">Admin Register</span></div>
+            
+            <Link
+            to={'/register/admin'}>
+              <button
+              type="button"
+              className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+            >
+              Register as Admin
+            </button>
+            </Link>
           </form>
         </motion.div>
       </div>
