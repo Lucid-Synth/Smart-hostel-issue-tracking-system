@@ -35,6 +35,19 @@ function AdminDashboard() {
         }
     };
 
+        const getPriorityStyle = (priority: Issue['priority']) => {
+        switch (priority) {
+        case 'LOW':
+            return 'bg-amber-50 text-green-500 border-amber-100';
+        case 'MEDIUM':
+            return 'bg-amber-50 text-yellow-500 border-blue-100';
+        case 'HIGH':
+            return 'bg-amber-50 text-red-700 border-emerald-100';
+        default:
+            return 'bg-slate-50 text-slate-700 border-slate-100';
+        }
+    };
+
     useEffect(() => {
         const fetchAllIssues = async () => {
             try{
@@ -72,7 +85,7 @@ function AdminDashboard() {
                 All Complaints
               </h1>
               <p className="text-slate-500 mt-1">
-                Track and manage your hostel maintenance requests.
+                Track and manage hostel maintenance requests.
               </p>
             </div>
 
@@ -105,14 +118,14 @@ function AdminDashboard() {
 
                   <div className="flex justify-between items-start mb-4">
                     <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-bold border ${getStatusStyle(
+                      className={`px-3 py-1 rounded-full text-[10px] font-bolder border ${getStatusStyle(
                         issue.status
                       )}`}
                     >
                       {issue.status}
                     </span>
 
-                    <span className="text-slate-400 text-xs flex items-center gap-1">
+                    <span className= {`text-xs flex items-center gap-1 ${getPriorityStyle(issue.priority)}`}>
                       <BadgeInfo size={12} />
                       {issue.priority}
                     </span>
@@ -125,9 +138,12 @@ function AdminDashboard() {
                     {issue.category}
                   </p>
 
-                  <p className="text-gray-800 text-sm font-ight">
+                  <p className="text-gray-800 text-sm font-light">
                     {issue.description}
                   </p>
+                  <button className="text-emerald-600 text-sm font-bold hover:underline mt-4">
+                    View Details →
+                  </button>
                 </motion.div>
               ))}
             </div>
