@@ -13,7 +13,6 @@ const AddIssue = () => {
 
   const [visibility, setVisibility] = useState<"PUBLIC" | "PRIVATE">("PRIVATE");
   const [images, setImages] = useState<File[]>([]);
-  const [profile, setProfile] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -133,7 +132,6 @@ const uploadImages = async () => {
         });
 
         const user = res.data.data;
-        setProfile(user);
 
         setFormData((prev) => ({
           ...prev,

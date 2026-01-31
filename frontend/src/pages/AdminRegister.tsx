@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const AdminRegister = () => {
 
-  const [signedUp,setSignedUp] = useState(false)
   const [formData,setFormData] = useState({
     name:"",
     email:"",
@@ -33,7 +32,6 @@ const AdminRegister = () => {
 
     localStorage.setItem("token", token);
     localStorage.setItem("user",JSON.stringify(user))
-    setSignedUp(true);
     navigate('/admin/dashboard');
   }
   return (
