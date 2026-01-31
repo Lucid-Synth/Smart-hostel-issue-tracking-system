@@ -112,6 +112,34 @@ export const getMyIssue = async(req:any,res:any) => {
     return res.status(500).json({
       success: false,
       message: "Internal server error"
+    });
+  }
+}
+
+export const getIssueById = async(req:any,res:any) => {
+  try{
+    const {issueId} = req.params;
+
+    if(!issueId){
+      return res.status(400).json({
+        success: false,
+        message: "IssueId not found"
+      })
+    }
+
+    const issue = await db.select()
+    .from(issueTable)
+    .where(eq(issueTable.id,issueId))
+
+    return res.status(200).json({
+      success: true,
+      issue
     })
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 }

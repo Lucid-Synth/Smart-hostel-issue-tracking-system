@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Base_url } from '../config/config'
 import Sidebar from '../components/Sidebar'
+import { Link } from 'react-router-dom'
 
 
 function AdminDashboard() {
@@ -141,9 +142,14 @@ function AdminDashboard() {
                   <p className="text-gray-800 text-sm font-light">
                     {issue.description}
                   </p>
-                  <button className="text-emerald-600 text-sm font-bold hover:underline mt-4">
-                    View Details →
-                  </button>
+                  <Link
+                  key={issue.id}
+                  to={`/issue/${issue.id}`}
+                  >
+                    <button className="text-emerald-600 text-sm font-bold hover:underline mt-4">
+                      View Details →
+                    </button>
+                  </Link>
                 </motion.div>
               ))}
             </div>
